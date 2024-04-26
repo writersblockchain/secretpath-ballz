@@ -1,10 +1,11 @@
 import * as THREE from "three"
-import { useEffect, useLayoutEffect, useMemo } from "react"
+import { useEffect, useLayoutEffect, useMemo, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Physics, usePlane, useSphere } from "@react-three/cannon"
 import niceColors from "nice-color-palettes"
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers5/react"
 import { projectId, testnets, mainnets, metadata } from "./config/config"
+import { ethers } from "ethers"
 
 const ethersConfig = defaultConfig({
   /*Required*/
@@ -48,21 +49,52 @@ createWeb3Modal({
 const tempColor = new THREE.Color()
 const data = Array.from({ length: 200 }, () => ({ color: niceColors[17][Math.floor(Math.random() * 5)], scale: 0.25 + Math.random() }))
 
-export const App = () => (
-  <>
-    <w3m-button />
-    <Canvas orthographic camera={{ position: [0, 0, 100], zoom: 100 }}>
-      <Physics gravity={[0, -50, 0]}>
-        <group position={[0, 0, -10]}>
-          <Mouse />
-          <Borders />
-          <InstancedSpheres />
-        </group>
-      </Physics>
-    </Canvas>
-  </>
-)
+export const App = () => {
+  const [chainId, setChainId] = useState("")
 
+  useEffect(() => {
+    const handleChainChanged = (_chainId) => {
+      // Convert _chainId to a number since it's usually hexadecimal
+      const numericChainId = parseInt(_chainId, 16)
+      setChainId(numericChainId.toString())
+      console.log("Network changed to chain ID:", numericChainId)
+    }
+
+    window.ethereum.on("chainChanged", handleChainChanged)
+
+    // Fetch initial chain ID
+    const fetchChainId = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum, "any")
+      const { chainId } = await provider.getNetwork()
+      setChainId(chainId.toString())
+      console.log("Current Chain ID:", chainId)
+    }
+
+    fetchChainId()
+
+    // Cleanup function to remove listener
+    return () => {
+      window.ethereum.removeListener("chainChanged", handleChainChanged)
+    }
+  }, [])
+  return (
+    <>
+      <div className="connect-wallet-button-container">
+        <w3m-button className="connect-wallet-button" />
+      </div>
+
+      <Canvas orthographic camera={{ position: [0, 0, 100], zoom: 100 }}>
+        <Physics gravity={[0, -50, 0]}>
+          <group position={[0, 0, -10]}>
+            <Mouse />
+            <Borders />
+            <InstancedSpheres />
+          </group>
+        </Physics>
+      </Canvas>
+    </>
+  )
+}
 function InstancedSpheres({ count = 200 }) {
   const { viewport } = useThree()
   const [ref, api] = useSphere((index) => ({

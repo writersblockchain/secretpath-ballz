@@ -9,12 +9,30 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
-  background: white;
+  /* overflow: hidden; */
+  background: black;
 }
 
 body {
   position: fixed;
   overscroll-behavior-y: none;
   cursor: url("https://github.com/chenglou/react-motion/raw/master/demos/demo8-draggable-list/cursor.png") 39 39, auto;
+}
+
+.connect-wallet-button-container {
+  position: fixed;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  z-index: 100; /* Ensure it's above other content */
+}
+
+.connect-wallet-button {
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  /* Add more styling as needed */
 }
