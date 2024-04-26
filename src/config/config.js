@@ -1,7 +1,7 @@
 // config.js
 
 // 1. Export Project ID
-export const projectId = "6e58f7c259de8fd44a4b237465fe9956";
+export const projectId = "9f68d526720f359ea9cd5fa13c3c5b08"
 
 // 2. Testnet configurations
 export const testnets = {
@@ -75,7 +75,7 @@ export const testnets = {
     explorerUrl: "https://sepolia.lineascan.build",
     rpcUrl: "https://rpc.sepolia.linea.build",
   },
-};
+}
 
 // 3. Mainnet configurations
 export const mainnets = {
@@ -142,12 +142,12 @@ export const mainnets = {
     explorerUrl: "https://scrollscan.com",
     rpcUrl: "https://rpc.scroll.io",
   },
-};
+}
 
 // 4. Metadata Object
 export const metadata = {
   name: "My Website",
   description: "My Website description",
-  url: "https://secretpath-connect.vercel.app", // origin must match your domain & subdomain
+  url: "https://secretpath-ballz.vercel.app/", // origin must match your domain & subdomain
   icons: ["https://avatars.mywebsite.com/"],
-};
+}

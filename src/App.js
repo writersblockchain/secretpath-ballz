@@ -4,21 +4,63 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Physics, usePlane, useSphere } from "@react-three/cannon"
 import niceColors from "nice-color-palettes"
 import { createWeb3Modal, defaultConfig } from "@web3modal/ethers5/react"
-// import { projectId, testnets, mainnets, metadata } from "./config/config"
+import { projectId, testnets, mainnets, metadata } from "./config/config"
+
+const ethersConfig = defaultConfig({
+  /*Required*/
+  metadata,
+
+  /*Optional*/
+  enableEIP6963: true, // true by default
+  enableInjected: true, // true by default
+  enableCoinbase: true, // true by default
+  rpcUrl: "...", // used for the Coinbase SDK
+  defaultChainId: 1, // used for the Coinbase SDK
+})
+
+createWeb3Modal({
+  ethersConfig,
+  chains: [
+    testnets.arbitrumTestnet,
+    testnets.sepoliaTestnet,
+    testnets.scrollTestnet,
+
+    testnets.optimismTestnet,
+    testnets.baseSepoliaTestnet,
+    testnets.berachainTestnet,
+    testnets.metisSepoliaTestnet,
+    testnets.lineaSepoliaTestnet,
+    testnets.nearAuroraTestnet,
+    mainnets.ethereumMainnet,
+    mainnets.polygonMainnet,
+    mainnets.binanceSmartChainMainnet,
+    mainnets.optimismMainnet,
+    mainnets.arbitrumMainnet,
+    mainnets.avalancheMainnet,
+    mainnets.baseMainnet,
+    mainnets.scrollMainnet,
+    mainnets.lineaMainnet,
+  ],
+  projectId,
+  enableAnalytics: true, // Optional - defaults to your Cloud configuration
+})
 
 const tempColor = new THREE.Color()
 const data = Array.from({ length: 200 }, () => ({ color: niceColors[17][Math.floor(Math.random() * 5)], scale: 0.25 + Math.random() }))
 
 export const App = () => (
-  <Canvas orthographic camera={{ position: [0, 0, 100], zoom: 100 }}>
-    <Physics gravity={[0, -50, 0]}>
-      <group position={[0, 0, -10]}>
-        <Mouse />
-        <Borders />
-        <InstancedSpheres />
-      </group>
-    </Physics>
-  </Canvas>
+  <>
+    <w3m-button />
+    <Canvas orthographic camera={{ position: [0, 0, 100], zoom: 100 }}>
+      <Physics gravity={[0, -50, 0]}>
+        <group position={[0, 0, -10]}>
+          <Mouse />
+          <Borders />
+          <InstancedSpheres />
+        </group>
+      </Physics>
+    </Canvas>
+  </>
 )
 
 function InstancedSpheres({ count = 200 }) {
