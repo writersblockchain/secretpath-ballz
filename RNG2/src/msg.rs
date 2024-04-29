@@ -15,25 +15,18 @@ pub struct InstantiateMsg {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum ExecuteMsg {
-    Input { message: PrivContractHandleMsg },
+    Input { message: PrivContractHandleMsg }
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum QueryMsg {
-    Query {},
-    RetrieveRandomness {},
+    Query {}
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct QueryResponse {
     pub message: String,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct ResponseRetrieveRandomnessMsg {
-    // pub address: String,
-    pub stored_random: Vec<u8>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
