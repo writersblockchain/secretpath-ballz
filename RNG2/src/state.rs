@@ -1,5 +1,5 @@
 use cosmwasm_std::{Addr, Binary};
-use secret_toolkit::storage::Item;
+use secret_toolkit::storage::{Item, Keymap};
 
 use schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
@@ -15,5 +15,15 @@ pub struct State {
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct Input {
     // Number of Words to generate
-    pub numWords: u64
+    pub numWords: u64,
+    pub address: String,
 }
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct Random {
+    // Number of Words to generate
+    pub numWords: Vec<u8>,
+    pub address: String,
+}
+
+pub static STORED_RANDOM: Keymap<bool, Random> = Keymap::new(b"stored _random_numbers");

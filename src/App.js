@@ -112,7 +112,7 @@ export const App = () => {
     const numWords = 3
 
     //data are the calldata/parameters that are passed into the contract
-    const data = JSON.stringify({ numWords: Number(numWords) })
+    const data = JSON.stringify({ numWords: Number(numWords), address: myAddress })
 
     let publicClientAddress
 
