@@ -1,5 +1,5 @@
 import * as THREE from "three"
-import { useEffect, useLayoutEffect, useMemo, useState } from "react"
+import { useEffect, useLayoutEffect, useMemo, useState, useRef } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { Physics, usePlane, useSphere } from "@react-three/cannon"
 import niceColors from "nice-color-palettes"
@@ -10,7 +10,10 @@ import { arrayify, hexlify, SigningKey, keccak256, recoverPublicKey, computeAddr
 import { ecdh, chacha20_poly1305_seal } from "@solar-republic/neutrino"
 import { bytes, bytes_to_base64, json_to_bytes, sha256, concat, text_to_bytes, base64_to_bytes } from "@blake.regalia/belt"
 import abi from "./config/abi"
+import { SecretNetworkClient } from "secretjs"
 import { testnet, mainnet } from "./config/secretpath"
+import MyImage from "./poweredby.png"
+import Song from "./sonic.mp3"
 
 const ethersConfig = defaultConfig({
   /*Required*/
@@ -25,18 +28,25 @@ const ethersConfig = defaultConfig({
 })
 
 createWeb3Modal({
+  chainImages: {
+    1088: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
+    59902: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
+    11155111: "https://sepolia.etherscan.io/images/svg/brands/ethereum-original.svg",
+    534352: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
+    534351: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
+    59144: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
+    59141: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
+    42161: "https://arbiscan.io/images/svg/brands/arbitrum.svg?v=1.5",
+    421614: "https://arbiscan.io/images/svg/brands/arbitrum.svg?v=1.5",
+    80085: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq-tjg8Kqgr76Ved6PbcjBoGCHWwnhDUljH-CziyBOzw&s",
+    11155420: "https://optimistic.etherscan.io/assets/optimism/images/svg/logos/chain-light.svg?v=24.4.4.4",
+    84532: "https://basescan.org/images/svg/brands/main.svg?v=24.4.4.9",
+    80002: "https://assets-global.website-files.com/637e2b6d602973ea0941d482/63e26c8a3f6e812d91a7aa3d_Polygon-New-Logo.png",
+    1313161555: "https://play-lh.googleusercontent.com/0zJGaaodqDL--ig2W2h60zp5uLMexQs4_PRlon5qhakSwqsdwa_ZmV9DQKvg1WVnn-w=w240-h480-rw",
+    128123: "https://www.etherlink.com/favicon.ico",
+  },
   ethersConfig,
   chains: [
-    testnets.arbitrumTestnet,
-    testnets.sepoliaTestnet,
-    testnets.scrollTestnet,
-
-    testnets.optimismTestnet,
-    testnets.baseSepoliaTestnet,
-    testnets.berachainTestnet,
-    testnets.metisSepoliaTestnet,
-    testnets.lineaSepoliaTestnet,
-    testnets.nearAuroraTestnet,
     mainnets.ethereumMainnet,
     mainnets.polygonMainnet,
     mainnets.binanceSmartChainMainnet,
@@ -46,6 +56,17 @@ createWeb3Modal({
     mainnets.baseMainnet,
     mainnets.scrollMainnet,
     mainnets.lineaMainnet,
+    mainnets.metisMainnet,
+    testnets.arbitrumTestnet,
+    testnets.sepoliaTestnet,
+    testnets.scrollTestnet,
+    testnets.optimismTestnet,
+    testnets.baseSepoliaTestnet,
+    testnets.berachainTestnet,
+    testnets.metisSepoliaTestnet,
+    testnets.lineaSepoliaTestnet,
+    testnets.nearAuroraTestnet,
+    testnets.etherlinkTestnet,
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
@@ -56,6 +77,34 @@ const data = Array.from({ length: 200 }, () => ({ color: niceColors[17][Math.flo
 
 export const App = () => {
   const [chainId, setChainId] = useState("")
+  const [ballCount, setBallCount] = useState(1)
+
+  const audioRef = useRef(null)
+
+  const handlePlay = () => {
+    audioRef.current.play().catch((error) => {
+      console.error("Error attempting to play audio:", error)
+    })
+  }
+
+  let query = async () => {
+    const secretjs = new SecretNetworkClient({
+      url: "https://lcd.testnet.secretsaturn.net",
+      chainId: "pulsar-3",
+    })
+
+    try {
+      const query_tx = await secretjs.query.compute.queryContract({
+        contract_address: process.env.REACT_APP_SECRET_ADDRESS,
+        code_hash: process.env.REACT_APP_CODE_HASH,
+        query: { retrieve_random: {} },
+      })
+      return query_tx.random // Return the fetched random number.
+    } catch (error) {
+      console.error("Error fetching random number:", error)
+      return 1 // Return a default value in case of error.
+    }
+  }
 
   useEffect(() => {
     const handleChainChanged = (_chainId) => {
@@ -85,6 +134,7 @@ export const App = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    handlePlay()
 
     const routing_contract = process.env.REACT_APP_SECRET_ADDRESS
     const routing_code_hash = process.env.REACT_APP_CODE_HASH
@@ -109,10 +159,9 @@ export const App = () => {
     const callbackGasLimit = 90000
     //the function name of the function that is called on the private contract
     const handle = "request_random"
-    const numWords = 3
 
     //data are the calldata/parameters that are passed into the contract
-    const data = JSON.stringify({ numWords: Number(numWords), address: myAddress })
+    const data = JSON.stringify({ address: myAddress })
 
     let publicClientAddress
 
@@ -150,8 +199,8 @@ export const App = () => {
     if (chainId === "534351") {
       publicClientAddress = testnet.publicClientAddressScrollTestnet
     }
-    if (chainId === "80001") {
-      publicClientAddress = testnet.publicClientAddressPolygonMumbaiTestnet
+    if (chainId === "80002") {
+      publicClientAddress = testnet.publicClientAddressPolygonAmoyTestnet
     }
     if (chainId === "11155420") {
       publicClientAddress = testnet.publicClientAddressOptimismSepoliaTestnet
@@ -162,8 +211,8 @@ export const App = () => {
     if (chainId === "84532") {
       publicClientAddress = testnet.publicClientAddressBaseSepoliaTestnet
     }
-    if (chainId === "80085") {
-      publicClientAddress = testnet.publicClientAddressBerachainTestnet
+    if (chainId === "59902") {
+      publicClientAddress = testnet.publicClientAddressMetisSepoliaTestnet
     }
     if (chainId === "59901") {
       publicClientAddress = testnet.publicClientAddressMetisSepoliaTestnet
@@ -173,6 +222,9 @@ export const App = () => {
     }
     if (chainId === "59141") {
       publicClientAddress = testnet.publicClientAddressLineaSepoliaTestnet
+    }
+    if (chainId === "128123") {
+      publicClientAddress = testnet.publicClientAddressEtherlinkTestnet
     }
 
     const callbackAddress = publicClientAddress.toLowerCase()
@@ -231,12 +283,21 @@ export const App = () => {
     }
 
     const txHash = await provider.send("eth_sendTransaction", [tx_params])
+    const newRandomNumber = await query()
+    setBallCount(newRandomNumber) // Directly set the new ball count from the query.
+    console.log("New ball count set to:", newRandomNumber)
     console.log(`Transaction Hash: ${txHash}`)
+    alert(`Congrats! You have received ${newRandomNumber} Secret Balls!`)
   }
 
   return (
     <>
-      <button onClick={handleSubmit}></button>
+      <audio ref={audioRef} src={Song} preload="auto" />
+
+      <div className="button-container">
+        <button onClick={handleSubmit}>Give me Secret Balls </button>
+        <img src={MyImage} alt="Descriptive Alt Text" style={{ marginTop: "10px", maxWidth: "100px" }} />
+      </div>
       <div className="connect-wallet-button-container">
         <w3m-button className="connect-wallet-button" />
       </div>
@@ -246,14 +307,14 @@ export const App = () => {
           <group position={[0, 0, -10]}>
             <Mouse />
             <Borders />
-            <InstancedSpheres />
+            <InstancedSpheres key={ballCount} count={ballCount} />
           </group>
         </Physics>
       </Canvas>
     </>
   )
 }
-function InstancedSpheres({ count = 200 }) {
+function InstancedSpheres({ count }) {
   const { viewport } = useThree()
   const [ref, api] = useSphere((index) => ({
     mass: data[index].scale * 100,

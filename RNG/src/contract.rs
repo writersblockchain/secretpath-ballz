@@ -1,17 +1,13 @@
 use crate::{
     msg::{
-        ExecuteMsg, GatewayMsg, InstantiateMsg, QueryMsg, QueryResponse,
-        ResponseRetrieveRandomnessMsg,
+        ExecuteMsg, GatewayMsg, InstantiateMsg, QueryMsg, QueryResponse, ResponseRetrieveRandomMsg,
     },
-    state::{Input, State, StoredRandom, CONFIG, STORED_RANDOM},
+    state::{Input, Random, State, CONFIG, STORED_RANDOM},
 };
 use cosmwasm_std::{
     entry_point, to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdError, StdResult,
 };
-use secret_toolkit::{
-    crypto::sha_256,
-    utils::{pad_handle_result, pad_query_result, HandleCallback},
-};
+use secret_toolkit::utils::{pad_handle_result, pad_query_result, HandleCallback};
 use tnls::{
     msg::{PostExecutionMsg, PrivContractHandleMsg},
     state::Task,
@@ -51,7 +47,7 @@ pub fn execute(deps: DepsMut, env: Env, info: MessageInfo, msg: ExecuteMsg) -> S
 pub fn query(deps: Deps, _env: Env, msg: QueryMsg) -> StdResult<Binary> {
     let response = match msg {
         QueryMsg::Query {} => try_query(deps),
-        QueryMsg::RetrieveRandomness {} => retrieve_randomness_query(deps),
+        QueryMsg::RetrieveRandom {} => try_random_query(deps),
     };
     pad_query_result(response, BLOCK_SIZE)
 }
@@ -93,35 +89,21 @@ fn try_random(
     let input: Input = serde_json_wasm::from_str(&input_values)
         .map_err(|err| StdError::generic_err(err.to_string()))?;
 
-    let num_words = input
-        .num_words
-        .parse::<u8>()
-        .map_err(|err| StdError::generic_err(format!("Invalid index: {}", err)))?;
+    let wallet = input.address;
 
-    let base_random = match env.block.random {
-        Some(random_value) => random_value,
-        None => return Err(StdError::generic_err("No random value available")),
+    let raw_random_u8 = env.block.random.unwrap().0[0]; // Original random number from blockchain
+
+    // Limit the random number to be between 0 and 200
+    let limited_random_u8 = raw_random_u8 % 201;
+
+    let random = Random {
+        random: limited_random_u8,
+        address: wallet.clone(),
     };
 
-    let mut random_numbers = Vec::new();
+    STORED_RANDOM.insert(deps.storage, &true, &random)?;
 
-    for i in 0..num_words {
-        let mut data = base_random.0.clone();
-        data.extend_from_slice(&(i as u64).to_be_bytes());
-        let hashed_number = sha_256(&data);
-        random_numbers.extend_from_slice(hashed_number.as_slice());
-    }
-
-    let stored_random = StoredRandom {
-        // address: address.clone(),
-        stored_random: random_numbers.clone(),
-    };
-
-    STORED_RANDOM
-        // .add_suffix(address.as_bytes())
-        .insert(deps.storage, &true, &stored_random)?;
-
-    let result = base64::encode(random_numbers);
+    let result = base64::encode(limited_random_u8.to_string());
 
     let callback_msg = GatewayMsg::Output {
         outputs: PostExecutionMsg {
@@ -146,71 +128,13 @@ fn try_query(_deps: Deps) -> StdResult<Binary> {
     to_binary(&QueryResponse { message })
 }
 
-fn retrieve_randomness_query(deps: Deps) -> StdResult<Binary> {
+fn try_random_query(deps: Deps) -> StdResult<Binary> {
     let value = STORED_RANDOM
-        // .add_suffix(wallet_address.as_bytes())
         .get(deps.storage, &true)
         .ok_or_else(|| StdError::generic_err("Value not found"))?;
 
-    to_binary(&ResponseRetrieveRandomnessMsg {
-        // address: value.address,
-        stored_random: value.stored_random,
+    to_binary(&ResponseRetrieveRandomMsg {
+        wallet: value.address,
+        random: value.random,
     })
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use cosmwasm_std::testing::{mock_dependencies, mock_env, mock_info};
-//     use cosmwasm_std::{from_binary, Addr};
-
-//     #[test]
-//     fn proper_initialization() {
-//         let mut deps = mock_dependencies();
-//         let env = mock_env();
-//         let info = mock_info("sender", &[]);
-//         let msg = InstantiateMsg {
-//             gateway_address: Addr::unchecked("fake address".to_string()),
-//             gateway_hash: "fake code hash".to_string(),
-//             gateway_key: Binary(b"fake key".to_vec()),
-//         };
-
-//         // we can just call .unwrap() to assert this was a success
-//         let res = instantiate(deps.as_mut(), env.clone(), info.clone(), msg).unwrap();
-//         assert_eq!(0, res.messages.len());
-
-//         // it worked, let's query
-//         let res = query(deps.as_ref(), env.clone(), QueryMsg::Query {});
-//         assert!(res.is_ok(), "query failed: {}", res.err().unwrap());
-//         let value: QueryResponse = from_binary(&res.unwrap()).unwrap();
-//         assert_eq!("placeholder", value.message);
-//     }
-
-//     #[test]
-//     fn request_score() {
-//         let mut deps = mock_dependencies();
-//         let env = mock_env();
-//         let info = mock_info("sender", &[]);
-//         let init_msg = InstantiateMsg {
-//             gateway_address: Addr::unchecked("fake address".to_string()),
-//             gateway_hash: "fake code hash".to_string(),
-//             gateway_key: Binary(b"fake key".to_vec()),
-//         };
-//         instantiate(deps.as_mut(), env.clone(), info.clone(), init_msg).unwrap();
-
-//         let message = PrivContractHandleMsg {
-//             input_values: "{\"address\":\"0x249C8753A9CB2a47d97A11D94b2179023B7aBCca\",\"name\":\"bob\",\"offchain_assets\":100,\"onchain_assets\":100,\"liabilities\":100,\"missed_payments\":100,\"income\":100}".to_string(),
-//             handle: "request_score".to_string(),
-//             user_address: Addr::unchecked("0x1".to_string()),
-//             task_id: 1,
-//             input_hash: to_binary(&"".to_string()).unwrap(),
-//             signature: to_binary(&"".to_string()).unwrap(),
-//         };
-//         let handle_msg = ExecuteMsg::Input { message };
-
-//         let handle_response =
-//             execute(deps.as_mut(), env.clone(), info.clone(), handle_msg).unwrap();
-//         let result = &handle_response.attributes[0].value;
-//         assert_eq!(result, "private computation complete");
-//     }
-// }

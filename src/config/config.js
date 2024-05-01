@@ -19,13 +19,13 @@ export const testnets = {
     explorerUrl: "https://sepolia.scrollscan.com",
     rpcUrl: "https://sepolia-rpc.scroll.io/",
   },
-  // polygonTestnet: {
-  //   chainId: 80001,
-  //   name: "Matic Mumbai",
-  //   currency: "MATIC",
-  //   explorerUrl: "https://mumbai.polygonscan.com",
-  //   rpcUrl: "https://rpc-mumbai.maticvigil.com/",
-  // },
+  polygonTestnet: {
+    chainId: 80002,
+    name: "Polygon Amoy Testnet",
+    currency: "MATIC",
+    explorerUrl: "https://amoy.polygonscan.com/",
+    rpcUrl: "https://rpc-amoy.polygon.technology/",
+  },
   optimismTestnet: {
     chainId: 11155420,
     name: "Optimism Sepolia",
@@ -54,12 +54,19 @@ export const testnets = {
     explorerUrl: "https://artio.beratrail.io/",
     rpcUrl: "https://artio.rpc.berachain.com/",
   },
+  etherlinkTestnet: {
+    chainId: 128123,
+    name: "Etherlink Testnet",
+    currency: "XTZ",
+    explorerUrl: "https://testnet-explorer.etherlink.com/",
+    rpcUrl: "https://node.ghostnet.etherlink.com/",
+  },
   metisSepoliaTestnet: {
-    chainId: 59901,
-    name: "Metis Sepolia",
-    currency: "Metis",
-    explorerUrl: "https://artio.beratrail.io/",
-    rpcUrl: "https://sepolia.rpc.metisdevops.link/",
+    chainId: 59902,
+    name: "Metis Sepolia Testnet",
+    currency: "sMETIS",
+    explorerUrl: "https://sepolia-explorer.metisdevops.link",
+    rpcUrl: "https://sepolia.metisdevops.link",
   },
   nearAuroraTestnet: {
     chainId: 1313161555,
@@ -110,7 +117,7 @@ export const mainnets = {
   arbitrumMainnet: {
     chainId: 42161,
     name: "Arbitrum One",
-    currency: "MATIC",
+    currency: "ETH",
     explorerUrl: "https://explorer.arbitrum.io",
     rpcUrl: "https://arbitrum-mainnet.infura.io",
   },
@@ -142,12 +149,19 @@ export const mainnets = {
     explorerUrl: "https://scrollscan.com",
     rpcUrl: "https://rpc.scroll.io",
   },
+  metisMainnet: {
+    chainId: 1088,
+    name: "Metis",
+    currency: "METIS",
+    explorerUrl: "https://1088.routescan.io",
+    rpcUrl: "https://andromeda.metis.io",
+  },
 }
 
 // 4. Metadata Object
 export const metadata = {
-  name: "My Website",
-  description: "My Website description",
+  name: "Secret Balls",
+  description: "Get your secret balls",
   url: "https://secretpath-ballz.vercel.app/", // origin must match your domain & subdomain
   icons: ["https://avatars.mywebsite.com/"],
 }

@@ -14,15 +14,14 @@ pub struct State {
 }
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 pub struct Input {
-    // Number of Words to generate
-    pub num_words: String,
-    // pub address: String,
+    pub address: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct StoredRandom {
+pub struct Random {
     // Number of Words to generate
-    // pub address: String,
-    pub stored_random: Vec<u8>,
+    pub random: u8,
+    pub address: String,
 }
-pub static STORED_RANDOM: Keymap<bool, StoredRandom> = Keymap::new(b"stored random numbers");
+
+pub static STORED_RANDOM: Keymap<bool, Random> = Keymap::new(b"stored _random_numbers");

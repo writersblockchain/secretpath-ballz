@@ -19,21 +19,27 @@ pub enum ExecuteMsg {
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct RandomStoreMsg {
+    pub wallet: String,
+    pub num_words: Vec<u8>,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
+pub struct ResponseRetrieveRandomMsg {
+    pub wallet: String,
+    pub random: u8,
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
 #[serde(rename_all = "snake_case")]
 pub enum QueryMsg {
     Query {},
-    RetrieveRandomness {},
+    RetrieveRandom {},
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq)]
 pub struct QueryResponse {
     pub message: String,
-}
-
-#[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]
-pub struct ResponseRetrieveRandomnessMsg {
-    // pub address: String,
-    pub stored_random: Vec<u8>,
 }
 
 #[derive(Serialize, Deserialize, Clone, Debug, PartialEq, JsonSchema)]

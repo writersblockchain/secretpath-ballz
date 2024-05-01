@@ -36,3 +36,47 @@ body {
   border-radius: 5px;
   /* Add more styling as needed */
 }
+.button-container {
+  position: absolute; /* Continue using absolute positioning */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust to true center */
+  z-index: 100; /* Stay above the canvas */
+  text-align: center; /* Center the contents */
+}
+
+.button-container button,
+.button-container img {
+  display: block; /* Block display to ensure they stack */
+  margin-left: auto;
+  margin-right: auto; /* Auto margins for horizontal centering */
+}
+
+.button-container button {
+  background-color: rgb(232, 74, 95); /* Keep the red color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: "Courier New", Courier, monospace; /* Retro font */
+  font-size: 16px;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
+.button-container img {
+  max-width: 100px; /* Control size */
+  /* Small top margin or none depending on your preference */
+}
+
+canvas {
+  z-index: 1; /* Ensure the canvas has a lower z-index */
+  /* margin-top: -50px; */
+}
