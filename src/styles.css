@@ -76,7 +76,15 @@ body {
   /* Small top margin or none depending on your preference */
 }
 
+.heading {
+  font-family: "Courier New", Courier, monospace; /* Retro font */
+  font-size: 24px;
+  color: white;
+  text-align: center;
+  margin-bottom: 20px; /* Add some space below */
+}
+
 canvas {
   z-index: 1; /* Ensure the canvas has a lower z-index */
-  /* margin-top: -50px; */
+  margin-top: -100px;
 }

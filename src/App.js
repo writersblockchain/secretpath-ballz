@@ -293,6 +293,9 @@ export const App = () => {
   return (
     <>
       <audio ref={audioRef} src={Song} preload="auto" />
+      <div className="heading">
+        <h3>Secret VRF Demo</h3>
+      </div>
 
       <div className="button-container">
         <button onClick={handleSubmit}>Give me Secret Balls </button>
