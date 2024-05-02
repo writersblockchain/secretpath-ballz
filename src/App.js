@@ -294,7 +294,7 @@ export const App = () => {
     <>
       <audio ref={audioRef} src={Song} preload="auto" />
       <div className="heading">
-        <h3>Secret VRF Demo</h3>
+        <h3>Cross-Chain Secret VRF Demo</h3>
       </div>
 
       <div className="button-container">
