@@ -1,9 +1,81 @@
-// config.js
-
-// 1. Export Project ID
+// Project ID
 export const projectId = "9f68d526720f359ea9cd5fa13c3c5b08"
 
-// 2. Testnet configurations
+// Mainnet configurations
+
+export const mainnets = {
+  ethereumMainnet: {
+    chainId: 1,
+    name: "Ethereum",
+    currency: "ETH",
+    explorerUrl: "https://etherscan.io",
+    rpcUrl: "https://cloudflare-eth.com",
+  },
+  binanceSmartChainMainnet: {
+    chainId: 56,
+    name: "BNB Chain",
+    currency: "BNB",
+    explorerUrl: "https://bscscan.com/",
+    rpcUrl: "https://bsc-dataseed.binance.org/",
+  },
+  polygonMainnet: {
+    chainId: 137,
+    name: "Polygon Mainnet",
+    currency: "MATIC",
+    explorerUrl: "https://polygonscan.com/",
+    rpcUrl: "https://polygon-mainnet.infura.io",
+  },
+  optimismMainnet: {
+    chainId: 10,
+    name: "OP Mainnet",
+    currency: "ETH",
+    explorerUrl: "https://optimistic.etherscan.io/",
+    rpcUrl: "https://optimism-mainnet.infura.io",
+  },
+  arbitrumMainnet: {
+    chainId: 42161,
+    name: "Arbitrum One",
+    currency: "ETH",
+    explorerUrl: "https://explorer.arbitrum.io",
+    rpcUrl: "https://arbitrum-mainnet.infura.io",
+  },
+  avalancheMainnet: {
+    chainId: 43114,
+    name: "Avalanche Network C-Chain",
+    currency: "AVAX",
+    explorerUrl: "https://snowtrace.io/",
+    rpcUrl: "https://avalanche-mainnet.infura.io",
+  },
+  baseMainnet: {
+    chainId: 8453,
+    name: "Base Mainnet",
+    currency: "ETH",
+    explorerUrl: "https://basescan.org",
+    rpcUrl: "https://mainnet.base.org",
+  },
+  lineaMainnet: {
+    chainId: 59144,
+    name: "Linea",
+    currency: "ETH",
+    explorerUrl: "https://lineascan.build",
+    rpcUrl: "https://linea.blockpi.network/v1/rpc/public",
+  },
+  scrollMainnet: {
+    chainId: 534352,
+    name: "Scroll",
+    currency: "ETH",
+    explorerUrl: "https://scrollscan.com",
+    rpcUrl: "https://rpc.scroll.io",
+  },
+  metisMainnet: {
+    chainId: 1088,
+    name: "Metis",
+    currency: "METIS",
+    explorerUrl: "https://1088.routescan.io",
+    rpcUrl: "https://andromeda.metis.io",
+  },
+}
+// Testnet configurations
 export const testnets = {
   sepoliaTestnet: {
     chainId: 11155111,
@@ -82,79 +154,19 @@ export const testnets = {
     explorerUrl: "https://sepolia.lineascan.build",
     rpcUrl: "https://rpc.sepolia.linea.build",
   },
-}
-
-// 3. Mainnet configurations
-export const mainnets = {
-  ethereumMainnet: {
-    chainId: 1,
-    name: "Ethereum",
+  XDCApothemTestnet: {
+    chainId: 51,
+    name: "XDC TestNet",
+    currency: "XDC",
+    explorerUrl: "https://explorer.apothem.network/",
+    rpcUrl: "https://rpc.apothem.network",
+  },
+  liskSepoliaTestnet: {
+    chainId: 4202,
+    name: "Lisk Sepolia Testnet",
     currency: "ETH",
-    explorerUrl: "https://etherscan.io",
-    rpcUrl: "https://cloudflare-eth.com",
-  },
-  binanceSmartChainMainnet: {
-    chainId: 56,
-    name: "BNB Chain",
-    currency: "BNB",
-    explorerUrl: "https://bscscan.com/",
-    rpcUrl: "https://bsc-dataseed.binance.org/",
-  },
-  polygonMainnet: {
-    chainId: 137,
-    name: "Polygon Mainnet",
-    currency: "MATIC",
-    explorerUrl: "https://polygonscan.com/",
-    rpcUrl: "https://polygon-mainnet.infura.io",
-  },
-  optimismMainnet: {
-    chainId: 10,
-    name: "OP Mainnet",
-    currency: "ETH",
-    explorerUrl: "https://optimistic.etherscan.io/",
-    rpcUrl: "https://optimism-mainnet.infura.io",
-  },
-  arbitrumMainnet: {
-    chainId: 42161,
-    name: "Arbitrum One",
-    currency: "ETH",
-    explorerUrl: "https://explorer.arbitrum.io",
-    rpcUrl: "https://arbitrum-mainnet.infura.io",
-  },
-  avalancheMainnet: {
-    chainId: 43114,
-    name: "Avalanche Network C-Chain",
-    currency: "AVAX",
-    explorerUrl: "https://snowtrace.io/",
-    rpcUrl: "https://avalanche-mainnet.infura.io",
-  },
-  baseMainnet: {
-    chainId: 8453,
-    name: "Base Mainnet",
-    currency: "ETH",
-    explorerUrl: "https://basescan.org",
-    rpcUrl: "https://mainnet.base.org",
-  },
-  lineaMainnet: {
-    chainId: 59144,
-    name: "Linea",
-    currency: "ETH",
-    explorerUrl: "https://lineascan.build",
-    rpcUrl: "https://linea.blockpi.network/v1/rpc/public",
-  },
-  scrollMainnet: {
-    chainId: 534352,
-    name: "Scroll",
-    currency: "ETH",
-    explorerUrl: "https://scrollscan.com",
-    rpcUrl: "https://rpc.scroll.io",
-  },
-  metisMainnet: {
-    chainId: 1088,
-    name: "Metis",
-    currency: "METIS",
-    explorerUrl: "https://1088.routescan.io",
-    rpcUrl: "https://andromeda.metis.io",
+    explorerUrl: "https://sepolia-blockscout.lisk.com",
+    rpcUrl: "https://rpc.lisk-sepolia-testnet.gelato.digital",
   },
 }
 

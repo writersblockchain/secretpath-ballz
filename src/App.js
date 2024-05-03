@@ -29,44 +29,81 @@ const ethersConfig = defaultConfig({
 
 createWeb3Modal({
   chainImages: {
-    1088: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
-    59902: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
-    11155111: "https://sepolia.etherscan.io/images/svg/brands/ethereum-original.svg",
-    534352: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
-    534351: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
-    59144: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
-    59141: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
+    // Arbitrum Mainnet
     42161: "https://arbiscan.io/images/svg/brands/arbitrum.svg?v=1.5",
-    421614: "https://arbiscan.io/images/svg/brands/arbitrum.svg?v=1.5",
-    80085: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq-tjg8Kqgr76Ved6PbcjBoGCHWwnhDUljH-CziyBOzw&s",
-    11155420: "https://optimistic.etherscan.io/assets/optimism/images/svg/logos/chain-light.svg?v=24.4.4.4",
-    84532: "https://basescan.org/images/svg/brands/main.svg?v=24.4.4.9",
+    // Linea Mainnet
+    59144: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
+
+    //Scroll Mainnet
+    534352: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
+
+    // Metis Mainnet
+    1088: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
+
+    //Sepolia Testnet
+    11155111: "https://sepolia.etherscan.io/images/svg/brands/ethereum-original.svg",
+
+    // Scroll Testnet
+    534351: "https://scrollscan.com/images/svg/brands/main.svg?v=24.4.3.0",
+
+    // Polygon Amoy Testnet
     80002: "https://assets-global.website-files.com/637e2b6d602973ea0941d482/63e26c8a3f6e812d91a7aa3d_Polygon-New-Logo.png",
-    1313161555: "https://play-lh.googleusercontent.com/0zJGaaodqDL--ig2W2h60zp5uLMexQs4_PRlon5qhakSwqsdwa_ZmV9DQKvg1WVnn-w=w240-h480-rw",
+
+    // Optimism Testnet
+    11155420: "https://optimistic.etherscan.io/assets/optimism/images/svg/logos/chain-light.svg?v=24.4.4.4",
+
+    // Arbitrum Testnet
+    421614: "https://arbiscan.io/images/svg/brands/arbitrum.svg?v=1.5",
+
+    // Base Sepolia Testnet
+    84532: "https://basescan.org/images/svg/brands/main.svg?v=24.4.4.9",
+
+    // Berachain Testnet
+    80085: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRq-tjg8Kqgr76Ved6PbcjBoGCHWwnhDUljH-CziyBOzw&s",
+
+    // Etherlink Testnet
     128123: "https://www.etherlink.com/favicon.ico",
+
+    //Metis Sepolia Testnet
+    59902: "https://cms-cdn.avascan.com/cms2/metis.97de56bab032.svg",
+
+    // Near Aurora Testnet
+    1313161555: "https://play-lh.googleusercontent.com/0zJGaaodqDL--ig2W2h60zp5uLMexQs4_PRlon5qhakSwqsdwa_ZmV9DQKvg1WVnn-w=w240-h480-rw",
+
+    // Linea Testnet
+    59141: "https://lineascan.build/images/svg/brands/main.svg?v=24.4.2.0",
+
+    // XDC Apothem
+    51: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe2KDAtPElT99WYln7tyeQPlPCiBWaRfRA_guAL0HImJWBcRympM_r5VBSiOR29zFpKIU&usqp=CAU",
+
+    //Lisk Sepolia
+    4202: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRan6D0dfiYmx2sv4kUPsFkfUDxYUWEuuA_dLJWgPm8Q&s",
   },
   ethersConfig,
   chains: [
     mainnets.ethereumMainnet,
-    mainnets.polygonMainnet,
     mainnets.binanceSmartChainMainnet,
+    mainnets.polygonMainnet,
     mainnets.optimismMainnet,
     mainnets.arbitrumMainnet,
     mainnets.avalancheMainnet,
     mainnets.baseMainnet,
-    mainnets.scrollMainnet,
     mainnets.lineaMainnet,
+    mainnets.scrollMainnet,
     mainnets.metisMainnet,
-    testnets.arbitrumTestnet,
     testnets.sepoliaTestnet,
     testnets.scrollTestnet,
+    testnets.polygonTestnet,
     testnets.optimismTestnet,
+    testnets.arbitrumTestnet,
     testnets.baseSepoliaTestnet,
     testnets.berachainTestnet,
-    testnets.metisSepoliaTestnet,
-    testnets.lineaSepoliaTestnet,
-    testnets.nearAuroraTestnet,
     testnets.etherlinkTestnet,
+    testnets.metisSepoliaTestnet,
+    testnets.nearAuroraTestnet,
+    testnets.lineaSepoliaTestnet,
+    testnets.XDCApothemTestnet,
+    testnets.liskSepoliaTestnet,
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
@@ -186,11 +223,17 @@ export const App = () => {
     if (chainId === "8453") {
       publicClientAddress = mainnet.publicClientAddressBaseMainnet
     }
+
+    if (chainId === "59144") {
+      publicClientAddress = mainnet.publicClientAddressLineaMainnet
+    }
+
     if (chainId === "534352") {
       publicClientAddress = mainnet.publicClientAddressScrollMainnet
     }
-    if (chainId === "59144") {
-      publicClientAddress = mainnet.publicClientAddressLineaMainnet
+
+    if (chainId === "1088") {
+      publicClientAddress = mainnet.publicClientAddressMetisMainnet
     }
 
     if (chainId === "11155111") {
@@ -211,10 +254,15 @@ export const App = () => {
     if (chainId === "84532") {
       publicClientAddress = testnet.publicClientAddressBaseSepoliaTestnet
     }
-    if (chainId === "59902") {
-      publicClientAddress = testnet.publicClientAddressMetisSepoliaTestnet
+
+    if (chainId === "80085") {
+      publicClientAddress = testnet.publicClientAddressBerachainTestnet
     }
-    if (chainId === "59901") {
+
+    if (chainId === "128123") {
+      publicClientAddress = testnet.publicClientAddressEtherlinkTestnet
+    }
+    if (chainId === "59902") {
       publicClientAddress = testnet.publicClientAddressMetisSepoliaTestnet
     }
     if (chainId === "1313161555") {
@@ -223,8 +271,11 @@ export const App = () => {
     if (chainId === "59141") {
       publicClientAddress = testnet.publicClientAddressLineaSepoliaTestnet
     }
-    if (chainId === "128123") {
-      publicClientAddress = testnet.publicClientAddressEtherlinkTestnet
+    if (chainId === "51") {
+      publicClientAddress = testnet.publicClientAddressXDCApothemTestnet
+    }
+    if (chainId === "4202") {
+      publicClientAddress = testnet.publicClientAddressLiskSepoliaTestnet
     }
 
     const callbackAddress = publicClientAddress.toLowerCase()
