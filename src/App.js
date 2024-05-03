@@ -295,10 +295,18 @@ export const App = () => {
       <audio ref={audioRef} src={Song} preload="auto" />
       <div className="heading">
         <h3>Cross-Chain Secret VRF Demo</h3>
+        <h6>
+          <a
+            href="https://docs.scrt.network/secret-network-documentation/confidential-computing-layer/ethereum-evm-developer-toolkit/usecases/vrf/vrf-developer-tutorial"
+            target="_blank">
+            [click here for docs]
+          </a>
+        </h6>
       </div>
 
       <div className="button-container">
         <button onClick={handleSubmit}>Give me Secret Balls </button>
+
         <img src={MyImage} alt="Descriptive Alt Text" style={{ marginTop: "10px", maxWidth: "100px" }} />
       </div>
       <div className="connect-wallet-button-container">

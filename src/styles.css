@@ -84,7 +84,39 @@ body {
   margin-bottom: 20px; /* Add some space below */
 }
 
+.dev-docs-button {
+  background-color: rgb(232, 74, 95); /* Keep the red color */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-family: "Courier New", Courier, monospace; /* Retro font */
+  font-size: 16px;
+  text-transform: uppercase;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dev-docs-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+}
+
 canvas {
   z-index: 1; /* Ensure the canvas has a lower z-index */
   margin-top: -100px;
+}
+
+h6 {
+  margin-top: -20px;
+}
+
+h6 a {
+  color: white; /* Sets the link color to white */
+  text-decoration: none; /* Removes underline from the link */
+}
+
+h6 a:hover {
+  text-decoration: underline; /* Adds underline on hover to indicate it's clickable */
 }
