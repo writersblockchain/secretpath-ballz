@@ -323,7 +323,12 @@ export const App = () => {
     const functionData = iface.encodeFunctionData("send", [payloadHash, myAddress, routing_contract, _info])
 
     const gasFee = await provider.getGasPrice()
-    const amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2)
+    let amountOfGas
+    if (chainId === "4202") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2)
+    } else {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2)
+    }
 
     const tx_params = {
       gas: hexlify(150000),
