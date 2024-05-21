@@ -73,8 +73,23 @@ export const mainnets = {
     currency: "METIS",
     explorerUrl: "https://1088.routescan.io",
     rpcUrl: "https://andromeda.metis.io",
+  
   },
-}
+  XDCMainnet: {
+    chainId: 50,
+    name: "XDC Mainnet",
+    currency: "XDC",
+    explorerUrl: "https://explorer.xinfin.network/",
+    rpcUrl: "https://rpc.xinfin.network",
+  },
+  NearAuroraMainnet: {
+    chainId: 1313161554,
+    name: "Aurora Mainnet",
+    currency: "ETH",
+    explorerUrl: "https://explorer.mainnet.aurora.dev/",
+    rpcUrl: "https://mainnet.aurora.dev",
+  }
+};
 // Testnet configurations
 export const testnets = {
   sepoliaTestnet: {
@@ -168,7 +183,14 @@ export const testnets = {
     explorerUrl: "https://sepolia-blockscout.lisk.com",
     rpcUrl: "https://rpc.lisk-sepolia-testnet.gelato.digital",
   },
-}
+  FhenixTestnet: {
+    chainId: 42069,
+    name: "Fhenix Frontier",
+    currency: "tFHE",
+    explorerUrl: "https://explorer.testnet.fhenix.zone/",
+    rpcUrl: "https://api.testnet.fhenix.zone:7747/",
+  },
+};
 
 // 4. Metadata Object
 export const metadata = {
