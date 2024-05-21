@@ -102,6 +102,8 @@ createWeb3Modal({
     mainnets.lineaMainnet,
     mainnets.scrollMainnet,
     mainnets.metisMainnet,
+    mainnets.XDCMainnet,
+    mainnets.NearAuroraMainnet,
     testnets.sepoliaTestnet,
     testnets.scrollTestnet,
     testnets.polygonTestnet,
@@ -115,6 +117,7 @@ createWeb3Modal({
     testnets.lineaSepoliaTestnet,
     testnets.XDCApothemTestnet,
     testnets.liskSepoliaTestnet,
+    testnets.FhenixTestnet,
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
