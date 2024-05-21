@@ -336,21 +336,30 @@ export const App = () => {
 
     const functionData = iface.encodeFunctionData("send", [payloadHash, myAddress, routing_contract, _info])
 
-    const gasFee = await provider.getGasPrice()
-    let amountOfGas
+    const gasFee = await provider.getGasPrice();
+    let amountOfGas;
+
+    let my_gas = 150000; 
     if (chainId === "4202") {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2)
-    } else {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2)
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2);
+    } 
+
+    if (chainId === "128123") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
+      my_gas = 15000000;
+    }
+    
+    else {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2);
     }
 
     const tx_params = {
-      gas: hexlify(150000),
+      gas: hexlify(my_gas),
       to: publicClientAddress,
       from: myAddress,
       value: hexlify(amountOfGas),
       data: functionData,
-    }
+    };
 
     const txHash = await provider.send("eth_sendTransaction", [tx_params])
     const newRandomNumber = await query()
