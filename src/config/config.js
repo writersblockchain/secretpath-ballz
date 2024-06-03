@@ -190,6 +190,13 @@ export const testnets = {
     explorerUrl: "https://explorer.testnet.fhenix.zone/",
     rpcUrl: "https://api.testnet.fhenix.zone:7747/",
   },
+  KakarotTestnet: {
+    chainId: 1802203764,
+    name: "Kakarot Sepolia",
+    currency: "ETH",
+    explorerUrl: "https://sepolia.kakarotscan.org",
+    rpcUrl: "https://sepolia-rpc.kakarot.org",
+  },
 };
 
 // 4. Metadata Object
