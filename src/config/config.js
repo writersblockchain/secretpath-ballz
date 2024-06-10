@@ -88,6 +88,34 @@ export const mainnets = {
     currency: "ETH",
     explorerUrl: "https://explorer.mainnet.aurora.dev/",
     rpcUrl: "https://mainnet.aurora.dev",
+  },
+  LiskMainnet: {
+    chainId: 1135,
+    name: "Lisk",
+    currency: "ETH",
+    explorerUrl: "https://blockscout.lisk.com",
+    rpcUrl: "https://rpc.api.lisk.com",
+  },
+  MainnetzMainnet: {
+    chainId: 2016,
+    name: "MainnetZ Mainnet",
+    currency: "NetZ",
+    explorerUrl: "https://explorer.mainnetz.io",
+    rpcUrl: "https://mainnet-rpc.mainnetz.io",
+  },
+  MoonriverMainnet: {
+    chainId: 1285,
+    name: "Moonriver",
+    currency: "MOVR",
+    explorerUrl: "https://moonriver.moonscan.io/",
+    rpcUrl: "https://rpc.api.moonriver.moonbeam.network",
+  },
+  MoonbeamMainnet: {
+    chainId: 1284,
+    name: "Moonbeam",
+    currency: "GLMR",
+    explorerUrl: "https://moonbeam.moonscan.io",
+    rpcUrl: "https://rpc.api.moonbeam.network",
   }
 };
 // Testnet configurations
@@ -183,19 +211,33 @@ export const testnets = {
     explorerUrl: "https://sepolia-blockscout.lisk.com",
     rpcUrl: "https://rpc.lisk-sepolia-testnet.gelato.digital",
   },
-  FhenixTestnet: {
-    chainId: 42069,
-    name: "Fhenix Frontier",
-    currency: "tFHE",
-    explorerUrl: "https://explorer.testnet.fhenix.zone/",
-    rpcUrl: "https://api.testnet.fhenix.zone:7747/",
-  },
   KakarotTestnet: {
     chainId: 1802203764,
     name: "Kakarot Sepolia",
     currency: "ETH",
     explorerUrl: "https://sepolia.kakarotscan.org",
     rpcUrl: "https://sepolia-rpc.kakarot.org",
+  },
+  MainnetzTestnet: {
+    chainId: 9768,
+    name: "MainnetZ Testnet",
+    currency: "NetZ",
+    explorerUrl: "https://testnet.mainnetz.io/",
+    rpcUrl: "https://testnet-rpc.mainnetz.io",
+  },
+  MoonbaseAlphaTestnet: {
+    chainId: 1287,
+    name: "moonbase-alphanet",
+    currency: "DEV",
+    explorerUrl: "https://moonbase.moonscan.io/",
+    rpcUrl: "https://rpc.testnet.moonbeam.network",
+  },
+  FhenixTestnet: {
+    chainId: 8008135,
+    name: "Fhenix Helium",
+    currency: "tETH",
+    explorerUrl: "https://explorer.helium.fhenix.zone",
+    rpcUrl: "https://api.helium.fhenix.zone/",
   },
 };
 
