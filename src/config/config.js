@@ -276,3 +276,4 @@ export const metadata = {
   url: "https://secretpath-ballz.vercel.app/", // origin must match your domain & subdomain
   icons: ["https://avatars.mywebsite.com/"],
 }
+
