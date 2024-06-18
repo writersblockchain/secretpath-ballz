@@ -48,6 +48,14 @@ createWeb3Modal({
 
         //Mainnetz Mainnet
         2016: "https://assets.coingecko.com/coins/images/33947/large/zcM8MEO5_400x400.png?1703537595",
+
+         //Core Mainnet
+         1116: "https://scan.test.btcs.network/images/icon.png",
+
+          //Mantle Mainnet
+        5000: "https://www.mantle.xyz/logo-light.svg",
+
+
    
        //Sepolia Testnet
        11155111:
@@ -104,6 +112,13 @@ createWeb3Modal({
 
           // Fhenix Testnet
           8008135: "https://media.licdn.com/dms/image/D4D0BAQFtUjFKqv_DJA/company-logo_200_200/0/1695715998703/fhenix_logo?e=2147483647&v=beta&t=U2cvAqKuWeEqE5Cb4HgyuBmVTUcBuZvsDi0JdivU3nw",
+
+             //Core Testnet
+         1115: "https://scan.test.btcs.network/images/icon.png",
+
+         //Mantle Testnet
+       5003: "https://www.mantle.xyz/logo-light.svg",
+
   },
   ethersConfig,
   chains: [
@@ -123,6 +138,8 @@ createWeb3Modal({
     mainnets.MainnetzMainnet,
     mainnets.MoonriverMainnet,
     mainnets.MoonbeamMainnet,
+    mainnets.CoreMainnet,
+    mainnets.MantleMainnet,
     testnets.sepoliaTestnet,
     testnets.scrollTestnet,
     testnets.polygonTestnet,
@@ -140,6 +157,8 @@ createWeb3Modal({
     testnets.MainnetzTestnet,
     testnets.MoonbaseAlphaTestnet,
     testnets.FhenixTestnet,
+    testnets.CoreTestnet,
+    testnets.MantleTestnet
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
@@ -289,6 +308,12 @@ export const App = () => {
     if (chainId === "1284") {
       publicClientAddress = mainnet.publicClientAddressMoonbeamMainnet
     }
+    if (chainId === "1116") {
+      publicClientAddress = mainnet.publicClientAddressCoreMainnet
+    }
+    if (chainId === "5000") {
+      publicClientAddress = mainnet.publicClientAddressMantleMainnet
+    }
 
     if (chainId === "11155111") {
       publicClientAddress = testnet.publicClientAddressSepoliaTestnet
@@ -342,6 +367,12 @@ export const App = () => {
     }
     if (chainId === "8008135") {
       publicClientAddress = testnet.publicClientAddressFhenixHeliumTestnet
+    }
+    if (chainId === "1115") {
+      publicClientAddress = testnet.publicClientAddressCoreTestnet
+    }
+    if (chainId === "5003") {
+      publicClientAddress = testnet.publicClientAddressMantleTestnet
     }
 
 
