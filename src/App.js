@@ -54,8 +54,6 @@ createWeb3Modal({
 
           //Mantle Mainnet
         5000: "https://www.mantle.xyz/logo-light.svg",
-
-
    
        //Sepolia Testnet
        11155111:
@@ -437,6 +435,11 @@ export const App = () => {
     if (chainId === "1287") {
       amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
       my_gas = 15000000;
+    }
+
+    if (chainId === "5003") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000000).div(2);
+      my_gas = 1500000000;
     }
     
     else {
