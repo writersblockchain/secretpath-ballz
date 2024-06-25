@@ -198,29 +198,38 @@ export const App = () => {
 
   useEffect(() => {
     const handleChainChanged = (_chainId) => {
-      // Convert _chainId to a number since it's usually hexadecimal
-      const numericChainId = parseInt(_chainId, 16)
-      setChainId(numericChainId.toString())
-      console.log("Network changed to chain ID:", numericChainId)
-    }
-
-    window.ethereum.on("chainChanged", handleChainChanged)
-
-    // Fetch initial chain ID
-    const fetchChainId = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum, "any")
-      const { chainId } = await provider.getNetwork()
-      setChainId(chainId.toString())
-      console.log("Current Chain ID:", chainId)
-    }
-
-    fetchChainId()
-
+      const numericChainId = parseInt(_chainId, 16);
+      setChainId(numericChainId.toString());
+      console.log("Network changed to chain ID:", numericChainId);
+    };
+  
+    const initEthereum = async () => {
+      if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.on("chainChanged", handleChainChanged);
+  
+        // Fetch initial chain ID
+        const fetchChainId = async () => {
+          const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+          const { chainId } = await provider.getNetwork();
+          setChainId(chainId.toString());
+          console.log("Current Chain ID:", chainId);
+        };
+  
+        await fetchChainId();
+      } else {
+        console.error('MetaMask is not installed');
+      }
+    };
+  
+    window.addEventListener('load', initEthereum);
+  
     // Cleanup function to remove listener
     return () => {
-      window.ethereum.removeListener("chainChanged", handleChainChanged)
-    }
-  }, [])
+      if (typeof window.ethereum !== 'undefined') {
+        window.ethereum.removeListener("chainChanged", handleChainChanged);
+      }
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
