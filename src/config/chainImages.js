@@ -14,7 +14,7 @@ let chainImages = {
      50: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe2KDAtPElT99WYln7tyeQPlPCiBWaRfRA_guAL0HImJWBcRympM_r5VBSiOR29zFpKIU&usqp=CAU",
 
      // Lisk Mainnet
-     1135: "https://pbs.twimg.com/profile_images/1610268745682849796/pjuC1Y85_400x400.jpg",
+     1135: "https://cryptologos.cc/logos/lisk-lsk-logo.png?v=032",
 
      //Mainnetz Mainnet
      2016: "https://assets.coingecko.com/coins/images/33947/large/zcM8MEO5_400x400.png?1703537595",
@@ -24,6 +24,9 @@ let chainImages = {
 
        //Mantle Mainnet
      5000: "https://www.mantle.xyz/logo-light.svg",
+
+     //Cronos Mainnet
+     25: "https://cryptologos.cc/logos/cronos-cro-logo.svg?v=032",
 
 
 
@@ -88,5 +91,8 @@ let chainImages = {
 
       //Mantle Testnet
     5003: "https://www.mantle.xyz/logo-light.svg",
+
+    //Cronos Testnet
+    338: "https://cryptologos.cc/logos/cronos-cro-logo.svg?v=032",
 
 };

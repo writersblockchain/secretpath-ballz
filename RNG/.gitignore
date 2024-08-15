@@ -17,3 +17,6 @@ Cargo.lock
 .vscode
 
 */node_modules
+.env
+contract.wasm
+contract.wasm.gz
