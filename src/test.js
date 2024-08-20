@@ -13,7 +13,7 @@ import abi from "./config/abi"
 import { SecretNetworkClient } from "secretjs"
 import { testnet, mainnet } from "./config/secretpath"
 import MyImage from "./poweredby.png"
-// import Song from "./sonic.mp3"
+import Song from "./sonic.mp3"
 
 const ethersConfig = defaultConfig({
   /*Required*/
@@ -281,8 +281,45 @@ export const App = () => {
 
     console.log("callbackSelector: ", callbackSelector)
 
-    const callbackGasLimit = 90000
+    let callbackGasLimit = 90000;
     //the function name of the function that is called on the private contract
+
+    const gasFee = await provider.getGasPrice();
+    let amountOfGas;
+
+    let my_gas = 150000; 
+    if (chainId === "4202") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2);
+    } 
+
+    if (chainId === "128123") {
+      callbackGasLimit = 15000000;
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2);
+      console.log("gas fee: ", gasFee);
+    
+    }
+
+    if (chainId === "1287") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
+      my_gas = 15000000;
+    }
+
+    if (chainId === "5003") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000000).div(2);
+      my_gas = 1500000000;
+    }
+    
+    else {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2);
+    }
+
+
+
+
+
+
+
+
     const handle = "request_random"
 
     //data are the calldata/parameters that are passed into the contract
@@ -474,35 +511,10 @@ export const App = () => {
 
     const functionData = iface.encodeFunctionData("send", [payloadHash, myAddress, routing_contract, _info])
 
-    const gasFee = await provider.getGasPrice();
-    let amountOfGas;
-
-    let my_gas = 150000; 
-    if (chainId === "4202") {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2);
-    } 
-
-    if (chainId === "128123") {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
-      my_gas = 15000000;
-    }
-
-    if (chainId === "1287") {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
-      my_gas = 15000000;
-    }
-
-    if (chainId === "5003") {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(1000000).div(2);
-      my_gas = 1500000000;
-    }
     
-    else {
-      amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2);
-    }
 
     const tx_params = {
-      gas: hexlify(my_gas),
+      gas: hexlify(callbackGasLimit),
       to: publicClientAddress,
       from: myAddress,
       value: hexlify(amountOfGas),
@@ -519,7 +531,7 @@ export const App = () => {
 
   return (
     <>
-      {/* <audio ref={audioRef} src={Song} preload="auto" /> */}
+      
       <div className="heading">
         <h3>Cross-Chain Secret VRF Demo</h3>
         <h6>
