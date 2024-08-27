@@ -151,6 +151,20 @@ GnosisMainnet: {
     explorerUrl: "https://cronoscan.com",
     rpcUrl: "https://evm-cronos.crypto.org",
   },
+  CronosZkEVMMainnet: {
+    chainId: 388,
+    name: "Cronos zkEVM",
+    currency: "zkCRO",
+    explorerUrl: "https://explorer.zkevm.cronos.org",
+    rpcUrl: "https://mainnet.zkevm.cronos.org",
+  },
+  ZKsyncEraMainnet: {
+    chainId: 324,
+    name: "Cronos Mainnet",
+    currency: "ETH",
+    explorerUrl: "https://explorer.zksync.io",
+    rpcUrl: "https://mainnet.era.zksync.io",
+  },
 
 };
 // Testnet configurations
@@ -315,6 +329,20 @@ export const testnets = {
     currency: "TCRO",
     explorerUrl: "https://explorer.cronos.org/testnet",
     rpcUrl: "https://evm-t3.cronos.org",
+  },
+  CronosZkEvmTestnet: {
+    chainId: 282,
+    name: "Cronos zkEVM Testnet",
+    currency: "zkTCRO",
+    explorerUrl: "https://explorer.zkevm.cronos.org/testnet",
+    rpcUrl: "https://testnet.zkevm.cronos.org",
+  },
+  ZksyncEraSepoliaTestnet: {
+    chainId: 300,
+    name: "ZKsync Sepolia Testnet",
+    currency: "ETH",
+    explorerUrl: "https://sepolia.explorer.zksync.io",
+    rpcUrl: "https://sepolia.era.zksync.dev",
   },
 
 

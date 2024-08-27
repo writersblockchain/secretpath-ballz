@@ -60,6 +60,12 @@ createWeb3Modal({
 
           //Cronos Mainnet
      25: "https://cryptologos.cc/logos/cronos-cro-logo.svg?v=032",
+
+          // Cronos Zk Mainnet
+          388: "https://docs.cronos.org/~gitbook/image?url=https%3A%2F%2F1786307500-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FqXsIo4b4WtOTfICyOIxa%252Ficon%252FjttFGLyNrcsRyiavSGOl%252FCGzQIEVX_400x400.png%3Falt%3Dmedia%26token%3D9955a6fa-7d27-48a0-bc9d-534e107668d8&width=32&dpr=2&quality=100&sign=3cf5e6d3&sv=1",
+
+          // Zksync Era Mainnet
+          324: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAOVBMVEVHcEzz8/Py8vLy8vLy8vL29vbi4uKCgoI/Pz9aWlr6+vrZ2dlnZ2cAAACioqKbm5sjIyO7u7vx8fEHp9RtAAAAE3RSTlMATtH9///////////////////NLBPW6gAAALRJREFUeAGN0wUSAyEQBEBscf//Y5M5auNQmZKTxkUIqbT5Ea3k3cw2Uqg9KqG3prUwh/yH9PxHH0jW0cOcpSfCfIiMMXgoI6VcQiTkwhISMcKKrw1JF5YMBcI4jEvFq/WBdkbHO1oWxgY2fJNpnb+AeX30dhdKz6IWzS7tA0MYnS0neg4I80ytvBpPhRGpftnCq2WgIYoUY4C9Ll/YLt9+4c9bts8Z9d706WjO86HeXocpxQ06RxKNJbAEDwAAAABJRU5ErkJggg==",
    
        //Sepolia Testnet
        11155111:
@@ -135,6 +141,14 @@ createWeb3Modal({
         //Cronos Testnet
     338: "https://cryptologos.cc/logos/cronos-cro-logo.svg?v=032",
 
+       // Cronos Zk Testnet
+       282: "https://docs.cronos.org/~gitbook/image?url=https%3A%2F%2F1786307500-files.gitbook.io%2F%7E%2Ffiles%2Fv0%2Fb%2Fgitbook-x-prod.appspot.com%2Fo%2Fspaces%252FqXsIo4b4WtOTfICyOIxa%252Ficon%252FjttFGLyNrcsRyiavSGOl%252FCGzQIEVX_400x400.png%3Falt%3Dmedia%26token%3D9955a6fa-7d27-48a0-bc9d-534e107668d8&width=32&dpr=2&quality=100&sign=3cf5e6d3&sv=1",
+ 
+       // Zksync Era Sepolia
+        300: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAOVBMVEVHcEzz8/Py8vLy8vLy8vL29vbi4uKCgoI/Pz9aWlr6+vrZ2dlnZ2cAAACioqKbm5sjIyO7u7vx8fEHp9RtAAAAE3RSTlMATtH9///////////////////NLBPW6gAAALRJREFUeAGN0wUSAyEQBEBscf//Y5M5auNQmZKTxkUIqbT5Ea3k3cw2Uqg9KqG3prUwh/yH9PxHH0jW0cOcpSfCfIiMMXgoI6VcQiTkwhISMcKKrw1JF5YMBcI4jEvFq/WBdkbHO1oWxgY2fJNpnb+AeX30dhdKz6IWzS7tA0MYnS0neg4I80ytvBpPhRGpftnCq2WgIYoUY4C9Ll/YLt9+4c9bts8Z9d706WjO86HeXocpxQ06RxKNJbAEDwAAAABJRU5ErkJggg=="
+
+
+
   },
   ethersConfig,
   chains: [
@@ -159,6 +173,8 @@ createWeb3Modal({
     mainnets.SeiMainnet,
     mainnets.GnosisMainnet,
     mainnets.CronosMainnet,
+    mainnets.CronosZkEVMMainnet,
+    mainnets.ZKsyncEraMainnet,
     
     testnets.sepoliaTestnet,
     testnets.scrollTestnet,
@@ -183,6 +199,8 @@ createWeb3Modal({
     testnets.SeiTestnet,
     testnets.UbitTestnet,
     testnets.CronosTestnet,
+    testnets.CronosZkEvmTestnet,
+    testnets.ZksyncEraSepoliaTestnet
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
@@ -357,6 +375,16 @@ export const App = () => {
       publicClientAddress = mainnet.publicClientAddressCronosMainnet
     }
 
+    if (chainId === "388") {
+      publicClientAddress = mainnet.publicClientAddressCronosZkEvm
+    }
+
+    if (chainId === "324") {
+      publicClientAddress = mainnet.publicClientAddressZksyncEraMainnet
+    }
+
+
+
     if (chainId === "11155111") {
       publicClientAddress = testnet.publicClientAddressSepoliaTestnet
     }
@@ -429,6 +457,14 @@ export const App = () => {
       publicClientAddress = testnet.publicClientAddressCronosTestnet
     }
 
+    if (chainId === "282") {
+      publicClientAddress = testnet.publicClientAddressCronosZkEvmTestnet
+    }
+
+    if (chainId === "300") {
+      publicClientAddress = testnet.publicClientAddressZkSyncEraSepoliaTestnet
+    }
+
 
     const callbackAddress = publicClientAddress.toLowerCase()
     console.log("callback address: ", callbackAddress)
@@ -489,6 +525,11 @@ export const App = () => {
 
     if (chainId === "1287") {
       amountOfGas = gasFee.mul(callbackGasLimit).mul(1000).div(2);
+      my_gas = 15000000;
+    }
+
+    if (chainId === "300") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(100000).div(2);
       my_gas = 15000000;
     }
 
