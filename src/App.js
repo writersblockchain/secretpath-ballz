@@ -200,7 +200,8 @@ createWeb3Modal({
     testnets.UbitTestnet,
     testnets.CronosTestnet,
     testnets.CronosZkEvmTestnet,
-    testnets.ZksyncEraSepoliaTestnet
+    testnets.ZksyncEraSepoliaTestnet,
+    testnets.EdeXaTestnet,
   ],
   projectId,
   enableAnalytics: true, // Optional - defaults to your Cloud configuration
@@ -465,6 +466,10 @@ export const App = () => {
       publicClientAddress = testnet.publicClientAddressZkSyncEraSepoliaTestnet
     }
 
+    if (chainId === "1995") {
+      publicClientAddress = testnet.publicClientAddressEdeXaTestnet
+    }
+
 
     const callbackAddress = publicClientAddress.toLowerCase()
     console.log("callback address: ", callbackAddress)
@@ -542,6 +547,11 @@ export const App = () => {
     }
 
     if (chainId === "80002") {
+      amountOfGas = gasFee.mul(callbackGasLimit).mul(100).div(2);
+      my_gas = 200000;
+    }
+
+    if (chainId === "1995") {
       amountOfGas = gasFee.mul(callbackGasLimit).mul(100).div(2);
       my_gas = 200000;
     }

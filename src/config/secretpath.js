@@ -83,4 +83,7 @@ export const testnet = {
     "0x3140D461c928381FdA7EFe13e0a4cDfC1B4eE540",
     publicClientAddressZkSyncEraSepoliaTestnet:
     "0xAaA666CE51E4c4dcB50781d4F84461e267392fC9",
+    publicClientAddressEdeXaTestnet:
+    "0x9Bb2D52521Bd93481106D7C35787BD33ceAbb836",
+
 };

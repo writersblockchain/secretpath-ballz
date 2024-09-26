@@ -344,6 +344,13 @@ export const testnets = {
     explorerUrl: "https://sepolia.explorer.zksync.io",
     rpcUrl: "https://sepolia.era.zksync.dev",
   },
+ EdeXaTestnet: {
+    chainId: 1995,
+    name: "edeXa Blockchain Testnet",
+    currency: "EDX",
+    explorerUrl: "https://explorer.testnet.edexa.com/",
+    rpcUrl: "https://testnet.edexa.com/rpc",
+  },
 
 
 };
