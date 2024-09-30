@@ -15,6 +15,7 @@
     "@solar-republic/cosmos-grpc": "^0.15.3",
     "@solar-republic/neutrino": "^1.2.4",
     "@web3modal/ethers5": "^4.1.9",
+    "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "ethers": "^5.7.2",
     "nice-color-palettes": "3.0.0",
