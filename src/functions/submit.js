@@ -36,7 +36,7 @@ export async function handleSubmit(e, setBallCount) {
 
   const chainId = (await provider.getNetwork()).chainId.toString();
 
-  const publicClientAddress = getPublicClientAddress(chainId);
+  const publicClientAddress = await getPublicClientAddress(chainId);
 
   const callbackAddress = publicClientAddress.toLowerCase();
   console.log("callback address: ", callbackAddress);

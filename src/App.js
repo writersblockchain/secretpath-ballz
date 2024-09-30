@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { Physics } from "@react-three/cannon";
@@ -6,10 +6,15 @@ import { useInitEthereum } from "./functions/initEthereum";
 import { Mouse, Plane, Borders, InstancedSpheres } from "./functions/createBalls";
 import MyImage from "./poweredby.png";
 import { handleSubmit } from "./functions/submit";
+import { initializeWeb3Modal } from './config/web3ModalConfig';
 
 export const App = () => {
   const [chainId, setChainId] = useState("");
   const [ballCount, setBallCount] = useState(1);
+
+  useEffect(() => {
+    initializeWeb3Modal();
+  }, []);
 
   useInitEthereum(setChainId);
 

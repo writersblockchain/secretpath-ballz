@@ -1,156 +1,52 @@
 // secretpath/getPublicClientAddress.js
-import { mainnet, testnet } from "../../config/secretpath";
 
-export function getPublicClientAddress(chainId) {
-  let publicClientAddress;
+// URL to your JSON file on GitHub (replace with your actual link)
+const jsonUrl = "https://raw.githubusercontent.com/SecretFoundation/secretpath/refs/heads/master/config/chains.json";
 
-  if (chainId === "1") {
-    publicClientAddress = mainnet.publicClientAddressEthereumMainnet;
+// Cache to store chain data
+let chainDataCache = null;
+
+// Function to fetch chain data from the GitHub JSON file (only once)
+async function fetchChainData() {
+  if (chainDataCache) {
+    return chainDataCache; // Return cached data if it exists
   }
-  if (chainId === "56") {
-    publicClientAddress = mainnet.publicClientAddressBinanceSmartChainMainnet;
+
+  try {
+    const response = await fetch(jsonUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch chain data");
+    }
+    const chainData = await response.json();
+    chainDataCache = chainData; // Cache the chain data after fetching
+    return chainData;
+  } catch (error) {
+    console.error("Error fetching chain data:", error);
+    return null;
   }
-  if (chainId === "137") {
-    publicClientAddress = mainnet.publicClientAddressPolygonMainnet;
-  }
-  if (chainId === "10") {
-    publicClientAddress = mainnet.publicClientAddressOptimismMainnet;
-  }
-  if (chainId === "42161") {
-    publicClientAddress = mainnet.publicClientAddressArbitrumOneMainnet;
-  }
-  if (chainId === "43114") {
-    publicClientAddress = mainnet.publicClientAddressAvalanceCChainMainnet;
-  }
-  if (chainId === "8453") {
-    publicClientAddress = mainnet.publicClientAddressBaseMainnet;
-  }
-  if (chainId === "59144") {
-    publicClientAddress = mainnet.publicClientAddressLineaMainnet;
-  }
-  if (chainId === "534352") {
-    publicClientAddress = mainnet.publicClientAddressScrollMainnet;
-  }
-  if (chainId === "1088") {
-    publicClientAddress = mainnet.publicClientAddressMetisMainnet;
-  }
-  if (chainId === "50") {
-    publicClientAddress = mainnet.publicClientAddressXDCMainnet;
-  }
-  if (chainId === "1313161554") {
-    publicClientAddress = mainnet.publicClientAddressNearAuroraMainnet;
-  }
-  if (chainId === "1135") {
-    publicClientAddress = mainnet.publicClientAddressLiskMainnet;
-  }
-  if (chainId === "2016") {
-    publicClientAddress = mainnet.publicClientAddressMainnetzMainnet;
-  }
-  if (chainId === "1285") {
-    publicClientAddress = mainnet.publicClientAddressMoonriverMainnet;
-  }
-  if (chainId === "1284") {
-    publicClientAddress = mainnet.publicClientAddressMoonbeamMainnet;
-  }
-  if (chainId === "1116") {
-    publicClientAddress = mainnet.publicClientAddressCoreMainnet;
-  }
-  if (chainId === "5000") {
-    publicClientAddress = mainnet.publicClientAddressMantleMainnet;
-  }
-  if (chainId === "1329") {
-    publicClientAddress = mainnet.publicClientAddressSeiMainnet;
-  }
-  if (chainId === "100") {
-    publicClientAddress = mainnet.publicClientAddressGnosisMainnet;
-  }
-  if (chainId === "25") {
-    publicClientAddress = mainnet.publicClientAddressCronosMainnet;
-  }
-  if (chainId === "388") {
-    publicClientAddress = mainnet.publicClientAddressCronosZkEvm;
-  }
-  if (chainId === "324") {
-    publicClientAddress = mainnet.publicClientAddressZksyncEraMainnet;
-  }
-  if (chainId === "11155111") {
-    publicClientAddress = testnet.publicClientAddressSepoliaTestnet;
-  }
-  if (chainId === "534351") {
-    publicClientAddress = testnet.publicClientAddressScrollTestnet;
-  }
-  if (chainId === "80002") {
-    publicClientAddress = testnet.publicClientAddressPolygonAmoyTestnet;
-  }
-  if (chainId === "11155420") {
-    publicClientAddress = testnet.publicClientAddressOptimismSepoliaTestnet;
-  }
-  if (chainId === "421614") {
-    publicClientAddress = testnet.publicClientAddressArbitrumSepoliaTestnet;
-  }
-  if (chainId === "84532") {
-    publicClientAddress = testnet.publicClientAddressBaseSepoliaTestnet;
-  }
-  if (chainId === "80085") {
-    publicClientAddress = testnet.publicClientAddressBerachainTestnet;
-  }
-  if (chainId === "128123") {
-    publicClientAddress = testnet.publicClientAddressEtherlinkTestnet;
-  }
-  if (chainId === "59902") {
-    publicClientAddress = testnet.publicClientAddressMetisSepoliaTestnet;
-  }
-  if (chainId === "1313161555") {
-    publicClientAddress = testnet.publicClientAddressNearAuroraTestnet;
-  }
-  if (chainId === "59141") {
-    publicClientAddress = testnet.publicClientAddressLineaSepoliaTestnet;
-  }
-  if (chainId === "51") {
-    publicClientAddress = testnet.publicClientAddressXDCApothemTestnet;
-  }
-  if (chainId === "4202") {
-    publicClientAddress = testnet.publicClientAddressLiskSepoliaTestnet;
-  }
-  if (chainId === "1802203764") {
-    publicClientAddress = testnet.publicClientAddressKakarotTestnet;
-  }
-  if (chainId === "9768") {
-    publicClientAddress = testnet.publicClientAddressMainnetzTestnet;
-  }
-  if (chainId === "1287") {
-    publicClientAddress = testnet.publicClientAddressMoonbaseAlphaTestnet;
-  }
-  if (chainId === "8008135") {
-    publicClientAddress = testnet.publicClientAddressFhenixHeliumTestnet;
-  }
-  if (chainId === "1115") {
-    publicClientAddress = testnet.publicClientAddressCoreTestnet;
-  }
-  if (chainId === "5003") {
-    publicClientAddress = testnet.publicClientAddressMantleTestnet;
-  }
-  if (chainId === "10200") {
-    publicClientAddress = testnet.publicClientAddressGnosisChiadoTestnet;
-  }
-  if (chainId === "713715") {
-    publicClientAddress = testnet.publicClientAddressSeiTestnet;
-  }
-  if (chainId === "44433") {
-    publicClientAddress = testnet.publicClientAddressUbitTestnet;
-  }
-  if (chainId === "338") {
-    publicClientAddress = testnet.publicClientAddressCronosTestnet;
-  }
-  if (chainId === "282") {
-    publicClientAddress = testnet.publicClientAddressCronosZkEvmTestnet;
-  }
-  if (chainId === "300") {
-    publicClientAddress = testnet.publicClientAddressZkSyncEraSepoliaTestnet;
-  }
-  if (chainId === "1995") {
-    publicClientAddress = testnet.publicClientAddressEdeXaTestnet;
-  }
+}
+
+// Function to get the public client address based on chainId
+export async function getPublicClientAddress(chainId) {
+  const chainData = await fetchChainData();
+  if (!chainData) return null;
+
+  const { mainnets, testnets } = chainData.chains;
+
+  let publicClientAddress = null;
+
+  // Helper function to match chainId and return publicClientAddress
+  const findPublicClientAddress = (chains) => {
+    for (let key in chains) {
+      if (chains[key].chainId.toString() === chainId.toString()) {
+        return chains[key].publicClientAddress;
+      }
+    }
+    return null;
+  };
+
+  // First check mainnets, then testnets
+  publicClientAddress = findPublicClientAddress(mainnets) || findPublicClientAddress(testnets);
 
   return publicClientAddress;
 }
