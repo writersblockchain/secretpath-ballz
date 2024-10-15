@@ -122,6 +122,11 @@ export async function handleSubmit(e, setBallCount) {
          amountOfGas = gasFee.mul(callbackGasLimit).mul(100).div(2);
          my_gas = 200000;
        }
+
+       if (chainId === "713715") {
+        amountOfGas = gasFee.mul(callbackGasLimit).mul(100).div(2);
+        my_gas = 200000;
+      }
    
        else {
          amountOfGas = gasFee.mul(callbackGasLimit).mul(3).div(2);
