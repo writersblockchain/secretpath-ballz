@@ -9,7 +9,7 @@ const ChainDataComponent = () => {
     const fetchChainData = async () => {
       try {
         // Replace this URL with your raw GitHub link to the JSON file
-        const response = await fetch('https://raw.githubusercontent.com/SecretFoundation/secretpath/refs/heads/master/config/chains.json');
+        const response = await fetch('https://raw.githubusercontent.com/SecretFoundation/secretpath-config/refs/heads/master/config/chains.json');
         
         if (!response.ok) {
           throw new Error('Network response was not ok');
