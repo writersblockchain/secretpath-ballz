@@ -6,11 +6,11 @@ import * as fs from "fs"
 // const wallet = new Wallet(process.env.MNEMONIC)
 const wallet = new Wallet("desk pigeon hammer sleep only mistake stool december offer patrol once vacant")
 
-const contract_wasm = fs.readFileSync("../contract.wasm.gz")
+const contract_wasm = fs.readFileSync("./contract.wasm.gz")
 
 const gatewayAddress = "secret10ex7r7c4y704xyu086lf74ymhrqhypayfk7fkj"
 
-const gatewayHash = "ad8ca07ffba1cb26ebf952c29bc4eced8319c171430993e5b5089887f27b3f70"
+const gatewayHash = "182c733154be0e39e42c3e1a2b5f553ecb83f761834a4dd2c08365e4b38164a9"
 
 const gatewayPublicKey = "0x046d0aac3ef10e69055e934ca899f508ba516832dc74aa4ed4d741052ed5a568774d99d3bfed641a7935ae73aac8e34938db747c2f0e8b2aa95c25d069a575cc8b"
 
